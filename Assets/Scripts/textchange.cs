@@ -59,7 +59,7 @@ Vector3 clr =new Vector3 (255,255,255);
             clr = new Vector3(0,0,0);
             
             global.point = key.pos;
-            Debug.Log(global.point);
+//            Debug.Log(global.point);
         }
     }
 
