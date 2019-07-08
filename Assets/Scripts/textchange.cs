@@ -15,6 +15,8 @@ public KeyCode kd;
 Globals global;
 Vector3 clr =new Vector3 (255,255,255);
 
+public GameObject textprefab;
+
     [SerializeField] Keycodeobj key;
     
     
@@ -28,6 +30,9 @@ Vector3 clr =new Vector3 (255,255,255);
     
     void Start()
     {
+        GameObject temp =Instantiate(textprefab,transform.position+ new Vector3(-0.4f,0,0.8f),textprefab.transform.rotation);
+               temp.GetComponent<TextMesh>().text = key.keyname;
+               temp.transform.parent = transform;
         key.pos = transform.position;
         key.scale = transform.localScale;
        
@@ -38,6 +43,7 @@ Vector3 clr =new Vector3 (255,255,255);
 
     void Update()
     {
+        
                key.pos = transform.position;
             if (clr.x<255)
             {
@@ -46,7 +52,7 @@ Vector3 clr =new Vector3 (255,255,255);
             clr.z += 2 * Time.deltaTime;
             }
          
-           gameObject.GetComponent<SpriteRenderer>().color = new Color(clr.x,clr.y,clr.z,.6f);
+           gameObject.GetComponent<SpriteRenderer>().color = new Color(clr.x,clr.y,clr.z,.3f);
            
         
     }

@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class Herojumps : MonoBehaviour
 {
@@ -12,7 +13,21 @@ public class Herojumps : MonoBehaviour
     [SerializeField] float velocity;
     [SerializeField] GameObject board;
 
+    
+
+ [Header("Wall collison")]
     [SerializeField] float bouncedistance = 1;
+
+    [Header("Trail")]
+
+    [SerializeField] GameObject trailprefab;
+    [SerializeField] float traildecay = 1;
+    [SerializeField] float traildelay = 0.1f;
+
+    [Header("Slider")]
+    [SerializeField] Slider slider;
+    [SerializeField] float sliderdecay;
+    public float newsliderdecay;
     IEnumerator tak;
     Vector3 jumpstartpos;
     Vector3 jumpdest;
@@ -24,11 +39,13 @@ public class Herojumps : MonoBehaviour
     Vector3 direction;
 
     Animator animator;
+    float passedtime = 0;
     // Start is called before the first frame update
     void Start()
     {animator = gameObject.GetComponentInChildren<Animator>();
         camoffset = Camera.main.transform.position;
      global = Resources.Load<Globals>("Global");
+     newsliderdecay = sliderdecay;
     }
 
     // Update is called once per frame
@@ -45,8 +62,6 @@ public class Herojumps : MonoBehaviour
              jumpdest = global.point;
             tak = Korutynka(global.point);
             StartCoroutine(tak);   
-            
-             
             }
 
         }
@@ -56,14 +71,30 @@ public class Herojumps : MonoBehaviour
                 boardjump = Vector3.Lerp(gameObject.transform.position,board.transform.position,0.9f);
                 boardjump.y = board.transform.position.y;
                 board.transform.position = boardjump;
+               
+            }
+            if (running && passedtime > traildelay)
+            {
+
+                 GameObject temp = Instantiate(trailprefab,transform.position,transform.rotation);
+                 temp.transform.Rotate(new Vector3(0,90,0),Space.World);
+                Destroy(temp,traildecay);
+                passedtime = 0;
             }
             Camera.main.transform.position = Vector3.Lerp(gameObject.transform.position + camoffset,Camera.main.transform.position,0.95f);
-    
+        passedtime += Time.deltaTime;
         direction = jumpstartpos - transform.position;
 //        Debug.Log(direction);
             transform.LookAt(jumpdest,Vector3.up);
            // transform.rotation= Quaternion.Euler(0,transform.rotation.y,0);
     
+        slider.value -= newsliderdecay;
+        
+        if (newsliderdecay <0.6)
+        {
+            newsliderdecay += newsliderdecay/30;
+        }
+
     
     }
 
@@ -106,6 +137,9 @@ public class Herojumps : MonoBehaviour
          {
              WallCollision();
          }
+
+         slider.value = slider.maxValue;
+         newsliderdecay = sliderdecay;
                 
             
 
@@ -129,7 +163,7 @@ public class Herojumps : MonoBehaviour
         Gizmos.color = Color.black;
         if (global!=null)
         {
-        Gizmos.DrawLine(transform.position,direction);                    
+       // Gizmos.DrawLine(transform.position,direction);                    
         }
 
     }

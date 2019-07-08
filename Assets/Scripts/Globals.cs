@@ -8,6 +8,7 @@ public class Globals : ScriptableObject
 [Header("Globals")]
 public Vector3 point;
 
+
 private void OnEnable() {
     point = new Vector3(0,0,0);
 }
