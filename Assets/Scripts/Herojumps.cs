@@ -67,7 +67,8 @@ public class Herojumps : MonoBehaviour
         }
         if (!running)
             {
-                
+                //Transforming keyboard after jumping
+
                 boardjump = Vector3.Lerp(gameObject.transform.position,board.transform.position,0.9f);
                 boardjump.y = board.transform.position.y;
                 board.transform.position = boardjump;
@@ -75,6 +76,7 @@ public class Herojumps : MonoBehaviour
             }
             if (running && passedtime > traildelay)
             {
+                //Trail
 
                  GameObject temp = Instantiate(trailprefab,transform.position,transform.rotation);
                  temp.transform.Rotate(new Vector3(0,90,0),Space.World);
@@ -133,14 +135,18 @@ public class Herojumps : MonoBehaviour
     //DODAĆ ANIMACJE UDERZENIA W ŚCIANE
         private void OnTriggerStay(Collider other) {
          
-         if (other.tag == "Wall")
-         {
+         //if (other.tag == "Wall")
+         //{
              WallCollision();
-         }
+         //}
 
          slider.value = slider.maxValue;
          newsliderdecay = sliderdecay;
                 
+                if (other.tag=="Enemy")
+                {
+                    StartCoroutine(other.gameObject.GetComponent<Enemybeh>().kicked(global.point));
+                }
             
 
         }

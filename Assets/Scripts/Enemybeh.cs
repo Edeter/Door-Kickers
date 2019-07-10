@@ -58,7 +58,7 @@ Vector3 startpos;
        // //IEnumerator ie = flyhigh(tak);
        // StartCoroutine(ie); 
         
-        StartCoroutine(Camera.main.GetComponent<CameraBeh>().shake());
+        StartCoroutine(Camera.main.GetComponent<CameraBeh>().shake(0.01f));
         if (health < 0)
         {
             StartCoroutine(flyhigh(gameObject));
@@ -78,9 +78,19 @@ Vector3 startpos;
 
     }
 
+    public IEnumerator kicked(Vector3 dir)
+    {
+         while(Vector3.Magnitude( Vector3.Lerp(transform.position,dir,0.1f) - global.point)>0.01f)
+        {   //upspeed += 0.01f;
+        Debug.Log("kicked");
+            transform.position= Vector3.Lerp(transform.position,dir,0.1f);
+            yield return new WaitForEndOfFrame();
+        }
+    }
+
 
     private void OnTriggerEnter(Collider other) {
-        Debug.Log("111");
+        //Debug.Log("111");
         tookdmg(1);
 
     }
