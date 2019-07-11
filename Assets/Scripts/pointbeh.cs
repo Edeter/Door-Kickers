@@ -14,6 +14,6 @@ public class pointbeh : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        transform.position = global.point;
+      //  transform.position = global.point;
     }
 }

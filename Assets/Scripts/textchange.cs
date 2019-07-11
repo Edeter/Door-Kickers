@@ -13,11 +13,13 @@ public class textchange : MonoBehaviour
 public KeyCode kd;
 
 Globals global;
-Vector3 clr =new Vector3 (255,255,255);
+Color clr;
+
+public Color startcolor;
 
 public GameObject textprefab;
 
-    [SerializeField] Keycodeobj key;
+    public Keycodeobj key;
     
     
     private void OnEnable() {
@@ -30,13 +32,21 @@ public GameObject textprefab;
     
     void Start()
     {
+        startcolor = gameObject.GetComponent<SpriteRenderer>().color;
+        
+        clr = startcolor;
+        
+        
+        
+        
+        
         GameObject temp =Instantiate(textprefab,transform.position+ new Vector3(-0.4f,0,0.8f),textprefab.transform.rotation);
                temp.GetComponent<TextMesh>().text = key.keyname;
                temp.transform.parent = transform;
         key.pos = transform.position;
         key.scale = transform.localScale;
        
-        kd =(KeyCode)System.Enum.Parse(typeof(KeyCode),key.keycode);
+        kd =key.Code;
         global = Resources.Load<Globals>("Global");
        // Debug.Log((int)kd);
     }
@@ -45,14 +55,23 @@ public GameObject textprefab;
     {
         
                key.pos = transform.position;
-            if (clr.x<255)
+            if (clr.r<startcolor.r)
             {
-                   clr.x += 2 * Time.deltaTime;
-            clr.y += 2 * Time.deltaTime;
-            clr.z += 2 * Time.deltaTime;
+                   clr.r += 2 * Time.deltaTime;
+            
             }
-         
-           gameObject.GetComponent<SpriteRenderer>().color = new Color(clr.x,clr.y,clr.z,.3f);
+         if (clr.g<startcolor.g)
+            {
+                
+            clr.g += 2 * Time.deltaTime;
+ 
+            }
+            if (clr.b<startcolor.b)
+            {
+
+            clr.b += 2 * Time.deltaTime;
+            }
+           gameObject.GetComponent<SpriteRenderer>().color = clr;
            
         
     }
@@ -60,12 +79,15 @@ public GameObject textprefab;
     {
         if (a == (int)kd)
         {
-            //Debug.Log("1");
-            gameObject.GetComponent<SpriteRenderer>().color = new Color(0,0,0,.6f);
-            clr = new Vector3(0,0,0);
+                //Debug.Log("1");
+           // gameObject.GetComponent<SpriteRenderer>().color = startcolor;
+            clr = Color.black;
+            clr.a = startcolor.a;
             
-            global.point = key.pos;
+            global.points[key.playernumber] = key.pos;
 //            Debug.Log(global.point);
+            
+            
         }
     }
 

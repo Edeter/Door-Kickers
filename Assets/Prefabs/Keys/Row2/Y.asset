@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keycode: Y
   keyname: Y
+  pos: {x: -62.320206, y: -0.21, z: -6.599623}
+  scale: {x: 0.1, y: 0.10000005, z: 0.10000005}
+  playernumber: 1

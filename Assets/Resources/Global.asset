@@ -12,4 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 09bba3b9dc4476e4eb37f46889e3f18f, type: 3}
   m_Name: Global
   m_EditorClassIdentifier: 
-  point: {x: -0.16, y: -0.21, z: -3.31}
+  points:
+  - {x: 0, y: 0, z: 0}
+  - {x: 6.31, y: 0, z: 2.8000002}
+  numberofplayers: 2

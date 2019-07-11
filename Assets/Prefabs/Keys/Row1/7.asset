@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keycode: Alpha7
   keyname: 7
+  pos: {x: -61.228203, y: 0, z: -4.5668225}
+  scale: {x: 0.1, y: 0.10000018, z: 0.10000018}
+  playernumber: 1

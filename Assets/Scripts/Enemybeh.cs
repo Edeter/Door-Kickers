@@ -80,11 +80,12 @@ Vector3 startpos;
 
     public IEnumerator kicked(Vector3 dir)
     {
-         while(Vector3.Magnitude( Vector3.Lerp(transform.position,dir,0.1f) - global.point)>0.01f)
+        Vector3 start=transform.position;
+         while(Vector3.Magnitude( transform.position - (2*dir - start))>0.01f)
         {   //upspeed += 0.01f;
-        Debug.Log("kicked");
-            transform.position= Vector3.Lerp(transform.position,dir,0.1f);
-            yield return new WaitForEndOfFrame();
+            Debug.Log("kicked");
+            transform.position= Vector3.Lerp(transform.position,2*dir - start,0.1f);
+            yield return null;
         }
     }
 

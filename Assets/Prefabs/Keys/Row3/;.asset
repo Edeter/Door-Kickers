@@ -14,3 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   keycode: Semicolon
   keyname: ;
+  pos: {x: -54.642605, y: -0.21, z: -8.750023}
+  scale: {x: 0.1, y: 0.10000005, z: 0.10000005}
+  playernumber: 1

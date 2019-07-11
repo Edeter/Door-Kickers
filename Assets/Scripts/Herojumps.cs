@@ -13,6 +13,8 @@ public class Herojumps : MonoBehaviour
     [SerializeField] float velocity;
     [SerializeField] GameObject board;
 
+    public int who;
+
     
 
  [Header("Wall collison")]
@@ -53,18 +55,22 @@ public class Herojumps : MonoBehaviour
     {
         //transform.position = Vector3.Lerp(transform.position,global.point,0.05f);
         if (Input.anyKeyDown)
+        { if (myinput())
         {
-            if (( !running)&& ( global.point!=transform.position)   )
+            if (( !running)&& ( Vector3.Magnitude(global.points[who]-transform.position)>0.1f)   )
             {
+                animator.Play("jump",-1);
               jumpstartpos = transform.position;
              //Debug.Log("1");
 //            Debug.Log(global.point);
-             jumpdest = global.point;
-            tak = Korutynka(global.point);
+             jumpdest = global.points[who];
+            tak = Korutynka(global.points[who]);
             StartCoroutine(tak);   
             }
 
+        }    
         }
+
         if (!running)
             {
                 //Transforming keyboard after jumping
@@ -102,7 +108,7 @@ public class Herojumps : MonoBehaviour
 
     IEnumerator Korutynka(Vector3 target)
     {Vector3 sum = transform.position-target;
-        animator.Play("jump",-1);
+        
         running = true;
         float ti = 0;
         timeToReachTarget = sum.magnitude/velocity;
@@ -145,7 +151,7 @@ public class Herojumps : MonoBehaviour
                 
                 if (other.tag=="Enemy")
                 {
-                    StartCoroutine(other.gameObject.GetComponent<Enemybeh>().kicked(global.point));
+                    StartCoroutine(other.gameObject.GetComponent<Enemybeh>().kicked(global.points[who]));
                 }
             
 
@@ -172,5 +178,23 @@ public class Herojumps : MonoBehaviour
        // Gizmos.DrawLine(transform.position,direction);                    
         }
 
+    }
+
+    bool myinput()
+    {
+
+
+        for (int i = 0; i < global.Playerkeycodes[who].Length; i++)
+        {
+            Debug.Log(global.Playerkeycodes[who][i]);
+            if(Input.GetKeyDown(global.Playerkeycodes[who][i]))
+            {
+                return true;
+                
+            }
+        }
+
+
+        return false;
     }
 }
