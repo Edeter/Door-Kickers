@@ -7,6 +7,8 @@ TagManager:
   - Wall
   - Enemy
   - Score
+  - Key 0
+  - Key 1
   layers:
   - Default
   - TransparentFX
